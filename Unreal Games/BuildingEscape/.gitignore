@@ -1,0 +1,19 @@
+##########################
+# Unreal Generated Files #
+#########################
+*/Build
+*/Binaries
+*/DerivedDataCache
+*/Intermediate
+*/Saved
+*/Content/StarterContent
+
+#################################
+# Visual Studio Generated Files #
+#################################
+
+*.VC.db
+*.opendb
+
+BuildingEscape_01/.vs/BuildingEscape_01/v15/ipch/AutoPCH/b62b8d5d8f6cd0b8/PHYSICSMANIPULATIONMODE.ipch
+BuildingEscape_01/.vs/BuildingEscape_01/v15/ipch/AutoPCH/

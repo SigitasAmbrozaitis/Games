@@ -1,0 +1,28 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#include "../NPC/ChooseNextWaypoint.h"
+#include "../NPC/PatrolRoute.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "AIController.h"
+
+
+EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent & OwnerComp, uint8 * NodeMemory)
+{
+	//Get Patrol Rout 
+	auto PatrolRouteComp = OwnerComp.GetAIOwner()->GetPawn()->FindComponentByClass<UPatrolRoute>();
+	if(!ensure(PatrolRouteComp)){UE_LOG(LogTemp, Warning, TEXT("Selected Pawn is missing PatrolRouteComponent")) return EBTNodeResult::Failed; }
+	//Get Patrol Points
+	auto PatrolPoints = PatrolRouteComp->GetPatrolPoints();
+	if (PatrolPoints.Num() == 0) { return EBTNodeResult::Failed;}	
+	
+	//Get index
+	auto BlackboardComp = OwnerComp.GetBlackboardComponent();
+	auto Index = BlackboardComp->GetValueAsInt(IndexKey.SelectedKeyName);
+	
+	//Set Next Waypoint
+	BlackboardComp->SetValueAsObject(WaypointKey.SelectedKeyName, PatrolPoints[Index]);
+	auto NextIndex = (Index + 1) % PatrolPoints.Num();
+	BlackboardComp->SetValueAsInt(IndexKey.SelectedKeyName, NextIndex);
+
+	return EBTNodeResult::Succeeded;
+}
