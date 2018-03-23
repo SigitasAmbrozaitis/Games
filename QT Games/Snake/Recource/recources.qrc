@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/colors">
+        <file>black.png</file>
+        <file>blue.png</file>
+        <file>green.png</file>
+        <file>red.png</file>
+        <file>white.png</file>
+        <file>yelow.png</file>
+        <file>body.jpg</file>
+        <file>Directional.png</file>
+        <file>Body.png</file>
+        <file>Head.png</file>
+        <file>Body2.png</file>
+        <file>BodyCorner.png</file>
+        <file>Head2.png</file>
+    </qresource>
+</RCC>

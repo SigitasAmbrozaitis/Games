@@ -3,10 +3,10 @@
 
 #include <QGraphicsPixmapItem>
 
-class Food : public QGraphicsPixmapItem
+class Food: public QGraphicsPixmapItem
 {
 public:
-    Food(QGraphicsPixmapItem * parent = 0);
+    Food(QGraphicsPixmapItem * parent = nullptr);
 };
 
 #endif // FOOD_H

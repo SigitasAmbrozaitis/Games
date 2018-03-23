@@ -1,13 +1,19 @@
 #ifndef BODY_H
 #define BODY_H
-#include <QObject>
+
 #include <QGraphicsPixmapItem>
 
-class Body :public QObject, public QGraphicsPixmapItem
+class Body : public QGraphicsPixmapItem
 {
-    Q_OBJECT
 public:
-    Body(QGraphicsPixmapItem * parent = 0);
+    Body(int x, int y, QGraphicsPixmapItem * parent = nullptr);
+    void setDirrection(char c);
+    char dir;
+    bool corner;
+    //int angle;
+
+    QPixmap image;
+    QPixmap *imageCopy;
 };
 
 #endif // BODY_H
