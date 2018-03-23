@@ -20,66 +20,70 @@ Head::Head(int x, int y, QGraphicsPixmapItem * parent):QObject(), Body(x, y, par
 
 void Head::keyPressEvent(QKeyEvent *event)
 {
+    if(!flag)
+    {
+        switch(event->key()){
+        case Qt::Key_Up:
+            if(moving !='D' && moving !='T') moving = 'T';
+            break;
+        case Qt::Key_Down:
+            if(moving !='D' && moving !='T') moving = 'D';
 
-        if(!flag)
-        {
-            switch(event->key()){
-            case Qt::Key_Up:
-                if(moving !='D' && moving !='T') moving = 'T';
-                break;
-            case Qt::Key_Down:
-                if(moving !='D' && moving !='T') moving = 'D';
-
-                break;
-            case Qt::Key_Right:
-                if(moving !='R' && moving !='L') moving = 'R';
-                break;
-            case Qt::Key_Left:
-                if(moving !='R' && moving !='L') moving = 'L';
-                break;
-            }
-            //game->body[0]->corner = true;
-            flag = true;
+            break;
+        case Qt::Key_Right:
+            if(moving !='R' && moving !='L') moving = 'R';
+            break;
+        case Qt::Key_Left:
+            if(moving !='R' && moving !='L') moving = 'L';
+            break;
         }
-
-
+        flag = true;
+    }
 }
 
 void Head::move()
 {
+    //moves body
+    updateBody();
 
-        updateBody();
-        switch(moving){
-        case 'T':
-            setPos(this->x() , this->y() - SIZE);
-            this->setDirrection('U');
+    //sets head position
+    switch(moving){
+    case 'T':
+        setPos(this->x() , this->y() - SIZE);
+        this->setDirrection('U');
 
-            break;
-        case 'D':
-            setPos(this->x() , this->y() +SIZE);
-            this->setDirrection('D');
-            break;
-        case 'R':
-            setPos(this->x()+SIZE , this->y() );
-            this->setDirrection('R');
-            break;
-        case 'L':
-            setPos(this->x() -SIZE, this->y() );
-            this->setDirrection('L');
-            break;
-        }
+        break;
+    case 'D':
+        setPos(this->x() , this->y() +SIZE);
+        this->setDirrection('D');
+        break;
+    case 'R':
+        setPos(this->x()+SIZE , this->y() );
+        this->setDirrection('R');
+        break;
+    case 'L':
+        setPos(this->x() -SIZE, this->y() );
+        this->setDirrection('L');
+        break;
+    }
 
-        flag = false;
+    //allows to take new input
+    flag = false;
 
+    //checks if head is not out of bounds
     checkViability();
 
+    //checks if head does not collide with body or food
     QList<QGraphicsItem *> colliding = collidingItems();
     for(int i=0; i<colliding.size(); ++i)
     {
+        //if collides with body stop game
         if(typeid(*(colliding[i]))==typeid(Body))
         {
             stopGame();
         }
+
+        //if collides with food, delete and generate new food, apppend body
         if(typeid(*(colliding[i])) == typeid(Food))
         {
             scene()->removeItem(colliding[i]);
@@ -99,7 +103,6 @@ void Head::checkViability()
     if(this->x()<0 || this->x() > WIDTH || this->y() < 0 || this->y()>HEIGHT)
     {
         stopGame();
-        qDebug() << "STOP!!!";
     }
 }
 
@@ -110,6 +113,8 @@ void Head::updateBody()
     Y = game->body[temp-1]->y();
 
     Body * kint;
+
+    //move all nodes from tail to head, except the first
     for(int i = temp-1; i > 0; --i)
     {
         kint = game->body[i-1];
@@ -120,9 +125,8 @@ void Head::updateBody()
             kint->corner = false;
         }
         game->body[i]->setDirrection(kint->dir);
-
-
     }
+    //set first body node location to head location
     game->body[0]->setPos(this->x(), this->y());
     game->body[0]->corner = false;
     game->body[0]->setDirrection(this->dir);

@@ -6,6 +6,7 @@
 class Food: public QGraphicsPixmapItem
 {
 public:
+    //contructor that sets image and position
     Food(QGraphicsPixmapItem * parent = nullptr);
 };
 

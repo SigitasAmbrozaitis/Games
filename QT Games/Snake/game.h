@@ -14,12 +14,12 @@
 class Game : public QGraphicsView
 {
 public:
-    Game();
+   Game();
 
-   QGraphicsScene * scene;
-   Head * head;
-   QList<Body *> body;
-   Food * food;
+   QGraphicsScene * scene;  //game scene
+   Head * head;             //snake head, all input from there
+   QList<Body *> body;      //snake body, follows head
+   Food * food;             //food randomly placed(loacation) in scene
 
 
 };

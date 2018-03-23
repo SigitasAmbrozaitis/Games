@@ -6,14 +6,14 @@
 class Body : public QGraphicsPixmapItem
 {
 public:
-    Body(int x, int y, QGraphicsPixmapItem * parent = nullptr);
-    void setDirrection(char c);
-    char dir;
-    bool corner;
-    //int angle;
+    Body(int x, int y, QGraphicsPixmapItem * parent = nullptr); //inicializes body node
+    void setDirrection(char c);                                 //sets direction in whic body node is going
+    char dir;       //direction
+    bool corner;    //true if corner
 
-    QPixmap image;
-    QPixmap *imageCopy;
+
+    QPixmap image;      //node image
+    QPixmap *imageCopy; //node image copy
 };
 
 #endif // BODY_H
