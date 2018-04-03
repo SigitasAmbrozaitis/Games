@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/MainWindow">
+        <file>Recources/MainWindowBackground.jpg</file>
+        <file>Recources/Bomberman_Title.png</file>
+    </qresource>
+</RCC>
